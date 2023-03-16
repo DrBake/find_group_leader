@@ -2,6 +2,14 @@
 #include <stdlib.h>
 #include <time.h>
 
+/*
+ * main: generates randon number from 0 to number of members
+ *       then the member is chosen from the array
+ *       if number chosen == \0 then a number number is chosen.
+ *
+ *retun: 0
+ */
+
 int main (void){
 	
 	int random_number;
@@ -13,14 +21,11 @@ int main (void){
 
 
 	number_of_members = sizeof(*member)/sizeof(*member[0]);
-	
 	random_number = rand() % number_of_members;
-
 
 	while (random_number == number_of_members - 1)
 		random_number = rand() % number_of_members;	
 
 	printf("%s will lead the discussion \n", member[random_number]);
-
 	return 0;
 }
