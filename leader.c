@@ -15,6 +15,11 @@ int main (void){
 	int random_number;
 	int number_of_members;
 	
+	
+	/*
+	 *replace member _1 ... with the names of your members
+	 */
+	
 	char *member[] = {"member_1", "member_2", "member_3", "member_4", "member_5", "member_6", "member_7", "\0"};
 
 	srand(time(NULL));
