@@ -1,35 +1,59 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
+
+#define MAX_MEMBERS 50
 
 /*
- * main: generates randon number from 0 to number of members
- *       then the member is chosen from the array
- *       if number chosen == \0 then a number number is chosen.
+ * Main function: prompts user to enter names of members,
+ * puts the names into an array, chooses a random member from
+ * the array, and prints their name as the leader of the discussion.
  *
- *return: 0
+ * Returns: 0 if the program runs successfully.
  */
 
-int main (void){
-	
-	int random_number;
-	int number_of_members;
-	
-	
-	/*
-	 *replace member _1 ... with the names of your members
-	 */
-	
-	char *member[] = {"member_1", "member_2", "member_3", "member_4", "member_5", "member_6", "member_7", "\0"};
+int main(void) {
+    // Declare variables
+    int random_number;
+    int number_of_members = 0;
+    char *member[MAX_MEMBERS];
+    char name[100];
 
-	srand(time(NULL));
+    // Prompt user to enter names of members
+    printf("Enter names of members (up to %d, enter 'done' when finished):\n", MAX_MEMBERS);
+    do {
+        printf("Member %d: ", number_of_members + 1);
+        scanf("%s", name);
+        if (strcmp(name, "done") != 0) {
+            // Add name to array if it's not "done"
+            member[number_of_members] = malloc(strlen(name) + 1);
+            strcpy(member[number_of_members], name);
+            number_of_members++;
+        }
+    } while (strcmp(name, "done") != 0 && number_of_members < MAX_MEMBERS);
 
-	number_of_members = sizeof(*member)/sizeof(*member[0]);
-	random_number = rand() % number_of_members;
+    if (number_of_members == 0) {
+        // If no members were entered, exit the program
+        printf("No members entered, exiting program.\n");
+        return 0;
+    }
 
-	while (random_number == number_of_members - 1)
-		random_number = rand() % number_of_members;	
+    // Seed the random number generator with the current time
+    srand(time(NULL));
 
-	printf("%s will lead the discussion \n", member[random_number]);
-	return 0;
+    // Choose a random number between 0 and the number of members
+    random_number = rand() % number_of_members;
+
+    // Print the name of the chosen member as the leader of the discussion
+    printf("%s will lead the discussion\n", member[random_number]);
+
+    // Free memory allocated for member names
+    for (int i = 0; i < number_of_members; i++) {
+        free(member[i]);
+    }
+
+    // Return 0 to indicate successful program completion
+    return 0;
 }
+
