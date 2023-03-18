@@ -14,19 +14,19 @@
  */
 
 int main(void) {
-    // Declare variables
+    /* Declare variables */
     int random_number;
     int number_of_members = 0;
     char *member[MAX_MEMBERS];
     char name[100];
 
-    // Prompt user to enter names of members
+    /* Prompt user to enter names of members */
     printf("Enter names of members (up to %d, enter 'done' when finished):\n", MAX_MEMBERS);
     do {
         printf("Member %d: ", number_of_members + 1);
         scanf("%s", name);
         if (strcmp(name, "done") != 0) {
-            // Add name to array if it's not "done"
+            /* Add name to array if it's not "done" */
             member[number_of_members] = malloc(strlen(name) + 1);
             strcpy(member[number_of_members], name);
             number_of_members++;
@@ -34,26 +34,26 @@ int main(void) {
     } while (strcmp(name, "done") != 0 && number_of_members < MAX_MEMBERS);
 
     if (number_of_members == 0) {
-        // If no members were entered, exit the program
+        /* If no members were entered, exit the program */
         printf("No members entered, exiting program.\n");
         return 0;
     }
 
-    // Seed the random number generator with the current time
+    /* Seed the random number generator with the current time */
     srand(time(NULL));
 
-    // Choose a random number between 0 and the number of members
+    /* Choose a random number between 0 and the number of members */
     random_number = rand() % number_of_members;
 
-    // Print the name of the chosen member as the leader of the discussion
+    /* Print the name of the chosen member as the leader of the discussion */
     printf("%s will lead the discussion\n", member[random_number]);
 
-    // Free memory allocated for member names
+    /* Free memory allocated for member names */
     for (int i = 0; i < number_of_members; i++) {
         free(member[i]);
     }
 
-    // Return 0 to indicate successful program completion
+    /* Return 0 to indicate successful program completion */
     return 0;
 }
 
